@@ -12,6 +12,7 @@
     "thapi": "./bin/index.js"
   },
   "dependencies": {
+    "pluralize": "^8.0.0",
     "yargs": "^17.6.0"
   }
 }

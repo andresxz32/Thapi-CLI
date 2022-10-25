@@ -1,7 +1,7 @@
 const { exec } = require('child_process');
 const process = require('process');
 const createApp = ({ name }) => {
-    console.log('creating App:', name)
+    console.log('Creating App:', name)
     if (!name || name === true) {
         console.log('ERROR: You must provide a name for the app.')
         return
@@ -16,6 +16,7 @@ const createApp = ({ name }) => {
         }
         console.log('Command executed successfully :)')
     });
+    return;
 }
 
 
