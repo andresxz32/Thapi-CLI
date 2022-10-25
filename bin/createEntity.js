@@ -1,23 +1,25 @@
+const process = require('process');
 const pluralize = require('pluralize')
-const createEntity = ({name}) => {
-    const newName = pluralize(name);
-    console.log('Creating Entity:', newName)
+const { titleCase } = require('./utilities/titlecase');
+
+const {createController } = require('./createController')
+
+
+const createEntity = ({ name }) => {
+    name = titleCase(name);
+    const pluralName = pluralize.plural(name);
+    const singularName = pluralize.singular(name);
+
+    console.log('\nCreating Entity:', pluralName)
+
     if (!name || name === true) {
         console.log('ERROR: You must provide a name for the app.')
         return
     }
-    return;
 
-    // const pathUser = process.cwd();
-    // const script = `cd ${pathUser} & git clone -b main https://github.com/andresxz32/skeleton-nestjs-architecture.git ${name} & cd ${name}`;
-    // console.log('Executing Command')
-    // exec(script, (err, stdout, stderr) => {
-    //     if (err) {
-    //         console.log(`ERROR:${err}`)
-    //         return;
-    //     }
-    //     console.log('Command executed successfully :)')
-    // });
+    const pathUser = process.cwd();
+    createController({ pathUser, singularName, pluralName })
+    createDomain({ pathUser, singularName, pluralName })
 }
 
 module.exports = { createEntity };

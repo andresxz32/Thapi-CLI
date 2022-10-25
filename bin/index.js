@@ -10,6 +10,7 @@ const argv = yargs(hideBin(process.argv)).argv
 
 //Help lines
 const usage = "\nUsage: \n thapi <new> <app_name> ";
+
 yargs.usage(usage)
     .option("l", {
         alias: "--new",
@@ -30,7 +31,7 @@ const command = {
     new: () => createApp({ name: argv.name }),
     entity: () => createEntity({ name: argv.name })
 }
-console.log(argv);
+
 Object.keys(argv).forEach((key) => {
     if (command[key]) {
         command[key].call();
