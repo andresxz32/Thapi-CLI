@@ -2,8 +2,8 @@ const process = require('process');
 const pluralize = require('pluralize')
 const { titleCase } = require('./utilities/titlecase');
 
-const {createController } = require('./createController')
-
+const { createController } = require('./createController')
+const { createDomain } = require('./createDomain')
 
 const createEntity = ({ name }) => {
     name = titleCase(name);

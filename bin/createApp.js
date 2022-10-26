@@ -7,7 +7,7 @@ const createApp = ({ name }) => {
         return
     }
     const pathUser = process.cwd();
-    const script = `cd ${pathUser} & git clone -b main https://github.com/andresxz32/skeleton-nestjs-architecture.git ${name} & cd ${name}`;
+    const script = `cd ${pathUser} & git clone -b main https://github.com/andresxz32/skeleton-nestjs-architecture.git ${name}`;
     console.log('Executing Command')
     exec(script, (err, stdout, stderr) => {
         if (err) {
