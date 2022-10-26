@@ -7,7 +7,6 @@ const addImports = ({file,routeApiModule,importsToAdd}) =>{
         imports = [...imports, importRoute]
     });
     file = file.replace(regexImports,'').replace('',imports.join('\n'));
-    console.log('Holi1')
     fs.writeFileSync(routeApiModule, file);
 }
 

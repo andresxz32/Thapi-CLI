@@ -13,7 +13,6 @@ const addControllers = ({ routeApiModule, file, controllersToAdd }) => {
         return controller ? controller.join('') : null
     }).filter(i => i !== null);
     file = file.replace(regexControllers, `controllers: [${controllersArray}]`)
-    console.log('Holi2')
     fs.writeFileSync(routeApiModule, file);
 }
 

@@ -50,7 +50,7 @@ export class ${singularName}PutController {
     ) { }
 
 
-    @Put('')
+    @Put(':id')
     async update(
         @Body() ${singularName.toLowerCase()}: ${singularName}Dto,
     ) {
@@ -58,5 +58,6 @@ export class ${singularName}PutController {
     }
 }`
 }
+
 
 module.exports = { getControllerTemplate, postControllerTemplate, putControllerTemplate }
