@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+//TODO: Refactor this code
 const addImportsAndExports = ({ routeApiModule, singularName, nameModule }) => {
     let file = fs.readFileSync(routeApiModule, 'utf8');
     const singularNameModule = `${singularName}${nameModule}`;
