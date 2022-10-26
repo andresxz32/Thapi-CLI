@@ -1,9 +1,9 @@
-const templateDto = (name) => {
+const templateDto = ({ singularName }) => {
     return `
 import { IsUUID } from "class-validator";
 
 
-export class ${name}Dto {
+export class ${singularName}Dto {
 
     @ApiProperty()
     @IsUUID('4', { message: 'El campo id no es un uuid válido' })

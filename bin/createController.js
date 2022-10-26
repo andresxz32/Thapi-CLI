@@ -2,35 +2,28 @@ const fs = require('fs');
 const { exec } = require('child_process');
 const { getControllerTemplate, postControllerTemplate, putControllerTemplate } = require('./utilities/templateControllers')
 const { templateDto } = require('./utilities/templateDto')
+const { addControllers } = require('./utilities/addControllers')
+const { addImports } = require('./utilities/addImports')
+const { detectPlatform } = require('./utilities/detectPlatform');
 
-const createController = ({ pathUser, singularName, pluralName }) => {
-    const rootPath = `${pathUser}/src/API/${pluralName}`
+
+const createController = ({ pathUser, singularName }) => {
+
+    const rootPath = detectPlatform(`${pathUser}/src/API/${singularName}`);
 
     const scriptRootPath = `mkdir ${rootPath}`
 
-    //Desde Acá
-    const routeApiModule = `${pathUser}/src/API/ApiModule.ts`
-    let apiModuleFile = fs.readFileSync(routeApiModule, 'utf8')
-    const regex = /controllers\s*:\s*\[(.*?)\s*\]/gs
-    const [controllers] = apiModuleFile.match(regex)
-    let controllersArray = controllers.replace(/controllers:|\[|\]/g, '').split(',');
-    controllersArray = [...controllersArray, 'newController']
 
-    apiModuleFile = apiModuleFile.replace(regex, `controllers: [${controllersArray}]`)
 
-    fs.writeFileSync(routeApiModule, apiModuleFile);
-    console.log(controllersArray)
 
-    //Hasta Acá
-    return
     exec(scriptRootPath, (err, stdout, stderr) => {
         if (err) {
             console.log(`ERROR:${err}`)
             return;
         }
-        const scriptFolders = `mkdir ${rootPath}/Controllers & mkdir ${rootPath}/DTO`
+        const scriptFolders = detectPlatform(`mkdir ${rootPath}/Controllers & mkdir ${rootPath}/DTO`)
 
-        exec(scriptFolders, (err, stdout, stderr) => {
+        exec(scriptFolders, async (err, stdout, stderr) => {
             if (err) {
                 console.log(`ERROR:${err}`)
                 return;
@@ -39,28 +32,53 @@ const createController = ({ pathUser, singularName, pluralName }) => {
             const postController = `${singularName}PostController`
             const putController = `${singularName}PutController`
 
-            fs.writeFileSync(`${rootPath}/Controllers/${getController}.ts`,
-                getControllerTemplate(singularName)
+            //Create Get controller of entity
+            fs.writeFileSync(
+                detectPlatform(`${rootPath}/Controllers/${getController}.ts`),
+                getControllerTemplate({ singularName })
             );
 
-            fs.writeFileSync(`${rootPath}/Controllers/${postController}.ts`,
-                postControllerTemplate(singularName)
+            //Create Post controller of entity
+            fs.writeFileSync(
+                detectPlatform(`${rootPath}/Controllers/${postController}.ts`),
+                postControllerTemplate({ singularName })
             );
 
-            fs.writeFileSync(`${rootPath}/Controllers/${putController}.ts`,
-                putControllerTemplate(singularName)
+            //Create Put controller of entity
+            fs.writeFileSync(
+                detectPlatform(`${rootPath}/Controllers/${putController}.ts`),
+                putControllerTemplate({ singularName })
             );
 
-            fs.writeFileSync(`${rootPath}/DTO/${singularName}Dto.ts`,
-                templateDto(singularName)
+            //Create DTO of entity
+            fs.writeFileSync(
+                detectPlatform(`${rootPath}/DTO/${singularName}Dto.ts`),
+                templateDto({ singularName })
             );
 
+            //Update API module with controllers and imports
+            const routeApiModule = detectPlatform(`${pathUser}/src/API/ApiModule.ts`)
+            let file = fs.readFileSync(routeApiModule, 'utf8')
 
 
 
+            addImports({
+                file, routeApiModule, importsToAdd: [
+                    `import { ${getController} } from './${singularName}/Controllers/${getController}'`,
+                    `import { ${postController} } from './${singularName}/Controllers/${postController}'`,
+                    `import { ${putController} } from './${singularName}/Controllers/${putController}'`
+                ]
+            })
+            file = fs.readFileSync(routeApiModule, 'utf8')
+            addControllers({
+                file, routeApiModule, controllersToAdd: [
+                    getController,
+                    postController,
+                    putController
+                ]
+            });
 
 
-            //TODO: Create Files .ts* in Controllers, DTO and update Module.ts
         })
     });
 }

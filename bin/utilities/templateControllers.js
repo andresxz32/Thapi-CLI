@@ -1,10 +1,10 @@
-const getControllerTemplate = (name) => {
+const getControllerTemplate = ({singularName}) => {
     return `
 import { Controller, Get, Param } from '@nestjs/common';
 
 
-@Controller("${name.toLowerCase()}")
-export class ${name}GetController {
+@Controller("${singularName.toLowerCase()}")
+export class ${singularName}GetController {
     constructor(
     ) { }
 
@@ -18,20 +18,20 @@ export class ${name}GetController {
 }`
 }
 
-const postControllerTemplate = (name) => {
+const postControllerTemplate = ({singularName}) => {
     return `
 import { Controller, Post, Body } from '@nestjs/common';
-import { ${name}Dto } from './DTO/${name}Dto';
+import { ${singularName}Dto } from '../DTO/${singularName}Dto';
 
-@Controller("${name.toLowerCase()}")
-export class ${name}PostController {
+@Controller("${singularName.toLowerCase()}")
+export class ${singularName}PostController {
     constructor(
     ) { }
 
 
     @Post('')
     async create(
-        @Body() ${name.toLowerCase()}: ${name}Dto,
+        @Body() ${singularName.toLowerCase()}: ${singularName}Dto,
     ) {
         return 'Ok'
     }
@@ -39,20 +39,20 @@ export class ${name}PostController {
 }
 
 
-const putControllerTemplate = (name) => {
+const putControllerTemplate = ({singularName}) => {
     return `
 import { Controller, Put, Body } from '@nestjs/common';
-import { AdmissionDto } from './DTO/AdmissionDto';
+import { AdmissionDto } from '../DTO/AdmissionDto';
 
-@Controller("${name.toLowerCase()}")
-export class ${name}PutController {
+@Controller("${singularName.toLowerCase()}")
+export class ${singularName}PutController {
     constructor(
     ) { }
 
 
     @Put('')
     async update(
-        @Body() ${name.toLowerCase()}: ${name}Dto,
+        @Body() ${singularName.toLowerCase()}: ${singularName}Dto,
     ) {
         return 'Ok'
     }

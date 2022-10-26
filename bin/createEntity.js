@@ -7,10 +7,10 @@ const { createDomain } = require('./createDomain')
 
 const createEntity = ({ name }) => {
     name = titleCase(name);
-    const pluralName = pluralize.plural(name);
+    // const pluralName = pluralize.plural(name);
     const singularName = pluralize.singular(name);
 
-    console.log('\nCreating Entity:', pluralName)
+    console.log('\nCreating Entity:', singularName)
 
     if (!name || name === true) {
         console.log('ERROR: You must provide a name for the app.')
@@ -18,8 +18,8 @@ const createEntity = ({ name }) => {
     }
 
     const pathUser = process.cwd();
-    createController({ pathUser, singularName, pluralName })
-    createDomain({ pathUser, singularName, pluralName })
+    createController({ pathUser, singularName })
+    createDomain({ pathUser, singularName })
 }
 
 module.exports = { createEntity };
