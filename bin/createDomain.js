@@ -1,9 +1,11 @@
 const fs = require('fs');
 const { exec } = require('child_process');
 const detectPlatform = require('./utilities/detectPlatform');
-const { templateEntity, templateCreator, templateUpdater, templateSearcher, templateModule } = require('./templates/domainTemplates')
+const { templateEntity, templateCreator, templateUpdater, templateSearcher, templateModule, templateRequest } = require('./templates/domainTemplates')
 const addImports = require('./utilities/addImports');
 const addImportsAndExports = require('./utilities/addImportsAndExports');
+
+
 const createDomain = ({ pathUser, singularName }) => {
     const rootPath = detectPlatform(`${pathUser}/src/Domain/${singularName}`);
     const scriptRootPath = `mkdir ${rootPath}`
@@ -41,6 +43,11 @@ const createDomain = ({ pathUser, singularName }) => {
         fs.writeFileSync(
             detectPlatform(`${rootPath}/${singularName}Module.ts`),
             templateModule({ singularName })
+        );
+
+        fs.writeFileSync(
+            detectPlatform(`${pathUser}/src/Shared/Requests/${singularName}CreatorRequest.ts`),
+            templateRequest({ singularName })
         );
 
         //Update API module with controllers and imports

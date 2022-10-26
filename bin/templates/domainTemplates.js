@@ -123,5 +123,13 @@ export class ${singularName}Module { }
     `
 }
 
+const templateRequest = ({ singularName }) => {
+    return `
+    export interface ${singularName}CreatorRequest {
+        id: string;
+    };
+    `
+}
 
-module.exports = { templateEntity, templateUpdater, templateSearcher, templateCreator, templateModule }
+
+module.exports = { templateEntity, templateUpdater, templateSearcher, templateCreator, templateModule, templateRequest }
