@@ -50,7 +50,7 @@ export class ${singularName}PutController {
     ) { }
 
 
-    @Put(':id')
+    @Put('')
     async update(
         @Body() ${singularName.toLowerCase()}: ${singularName}Dto,
     ) {

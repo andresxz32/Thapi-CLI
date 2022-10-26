@@ -2,9 +2,9 @@ const fs = require('fs');
 const { exec } = require('child_process');
 const { getControllerTemplate, postControllerTemplate, putControllerTemplate } = require('./templates/controllersTemplates')
 const { templateDto } = require('./templates/dtoTemplates')
-const { addControllers } = require('./utilities/addControllers')
-const { addImports } = require('./utilities/addImports')
-const { detectPlatform } = require('./utilities/detectPlatform');
+const addControllers = require('./utilities/addControllers')
+const addImports = require('./utilities/addImports')
+const detectPlatform = require('./utilities/detectPlatform');
 
 
 const createController = ({ pathUser, singularName }) => {

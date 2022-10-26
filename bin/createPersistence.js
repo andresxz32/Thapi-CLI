@@ -1,9 +1,9 @@
 const fs = require('fs');
 const { exec } = require('child_process');
-const { detectPlatform } = require('./utilities/detectPlatform');
-
+const detectPlatform = require('./utilities/detectPlatform');
 const { templateEntity, templateProvider, templateRepository, templateIRepository, templateModule } = require('./templates/persistenceTemplates');
-
+const addModulesInPersistenceModule = require('./utilities/addModulesInPersistenceModule');
+const addImportsAndExports = require('./utilities/addImportsAndExports');
 const createPersistence = ({ pathUser, singularName, pluralName }) => {
     const rootPath = detectPlatform(`${pathUser}/src/Persistence/${singularName}`);
 
@@ -47,8 +47,11 @@ const createPersistence = ({ pathUser, singularName, pluralName }) => {
             templateModule({ singularName })
         );
 
-        //TODO: import files in module
-        //TODO: import module in PersistenceModule
+        const routeApiModule = detectPlatform(`${pathUser}/src/Persistence/PersistenceModule.ts`);
+        addModulesInPersistenceModule({
+            routeApiModule, singularName
+        })
+        addImportsAndExports({ routeApiModule, singularName, nameModule: "RepositoryModule" })
     });
 }
 

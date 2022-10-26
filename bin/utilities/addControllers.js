@@ -16,4 +16,4 @@ const addControllers = ({ routeApiModule, file, controllersToAdd }) => {
     fs.writeFileSync(routeApiModule, file);
 }
 
-module.exports = { addControllers }
+module.exports = addControllers; 

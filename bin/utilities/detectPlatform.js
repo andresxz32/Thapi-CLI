@@ -3,4 +3,4 @@ const detectPlatform = (route) => {
 }
 
 
-module.exports = { detectPlatform }
+module.exports = detectPlatform;

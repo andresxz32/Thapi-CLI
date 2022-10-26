@@ -24,7 +24,7 @@ const createEntity = ({ name }) => {
     const pathUser = process.cwd();
     createController({ pathUser, singularName });
     createPersistence({ pathUser, singularName, pluralName });
-    // createDomain({ pathUser, singularName })
+    createDomain({ pathUser, singularName })
 }
 
 module.exports = { createEntity };

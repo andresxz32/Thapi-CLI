@@ -48,7 +48,7 @@ const templateRepository = ({ singularName }) => {
     import { Model } from 'mongoose';
     import { I${singularName}Repository } from './I${singularName}Repository';
     import { ${singularName}Document } from './${singularName}Entity';
-    import { ${singularName} } from 'Domain/${singularName}/${singularName}';
+    import { ${singularName} } from 'src/Domain/${singularName}/${singularName}';
     
     
     @Injectable()
@@ -57,7 +57,7 @@ const templateRepository = ({ singularName }) => {
         constructor(@InjectModel('${singularName}') private readonly _${lowerSingularName}Model: Model<${singularName}Document>) { }
     
         private async persist(id: string, ${lowerSingularName}: ${singularName}): Promise<void> {
-            const document = { ... ${lowerSingularName}, _id: id, id: undefined };
+            const document = { ...${lowerSingularName}, _id: id, id: undefined };
             await this._${lowerSingularName}Model.updateOne({ _id: id }, { $set: document }, { upsert: true });
         }
     
@@ -67,8 +67,7 @@ const templateRepository = ({ singularName }) => {
 
 const templateIRepository = ({ singularName }) => {
     return `
-import { ${singularName} } from "./${singularName}";
-
+import { ${singularName} } from "src/Domain/${singularName}/${singularName}"
 export interface I${singularName}Repository {
     //Add use cases here
 }
