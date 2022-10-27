@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 console.log('\nThapi CLI for create aplications of Nestjs with hexagonal architecture');
 console.log('\nProvided by Andrés Ospina for Trobbit Inc.')
+console.log('\n\n https://github.com/andresxz32/Thapi-CLI')
 const yargs = require("yargs");
 const { createApp } = require("./createApp");
 const { createEntity } = require("./createEntity");
