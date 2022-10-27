@@ -1,11 +1,15 @@
-const getControllerTemplate = ({singularName}) => {
+const getControllerTemplate = ({ singularName }) => {
+    const lowerSingularName = singularName.toLowerCase()
     return `
 import { Controller, Get, Param } from '@nestjs/common';
+import { ${singularName}Searcher } from 'src/Domain/${singularName}/${singularName}Searcher';
+import { ApiTags } from '@nestjs/swagger';
 
-
-@Controller("${singularName.toLowerCase()}")
+@ApiTags('${singularName}')
+@Controller("${lowerSingularName}")
 export class ${singularName}GetController {
     constructor(
+        private readonly _${lowerSingularName}Searcher: ${singularName}Searcher,
     ) { }
 
 
@@ -13,48 +17,58 @@ export class ${singularName}GetController {
     async find(
         @Param('id') id: string,
     ) {
-        return 'Ok'
+        return await this._${lowerSingularName}Searcher.searchById(id);
     }
 }`
 }
 
-const postControllerTemplate = ({singularName}) => {
+const postControllerTemplate = ({ singularName }) => {
+    const lowerSingularName = singularName.toLowerCase()
     return `
 import { Controller, Post, Body } from '@nestjs/common';
 import { ${singularName}Dto } from '../DTO/${singularName}Dto';
+import { ${singularName}Creator } from 'src/Domain/${singularName}/${singularName}Creator';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller("${singularName.toLowerCase()}")
+@ApiTags('${singularName}')
+@Controller("${lowerSingularName}")
 export class ${singularName}PostController {
     constructor(
+        private readonly _${lowerSingularName}Creator: ${singularName}Creator,
     ) { }
 
 
     @Post('')
     async create(
-        @Body() ${singularName.toLowerCase()}: ${singularName}Dto,
+        @Body() ${lowerSingularName}: ${singularName}Dto,
     ) {
-        return 'Ok'
+        await this._${lowerSingularName}Creator.create(${lowerSingularName});
     }
 }`
 }
 
 
-const putControllerTemplate = ({singularName}) => {
+const putControllerTemplate = ({ singularName }) => {
+    const lowerSingularName = singularName.toLowerCase()
     return `
 import { Controller, Put, Body } from '@nestjs/common';
-import { AdmissionDto } from '../DTO/AdmissionDto';
+import { ${singularName}Dto } from '../DTO/${singularName}Dto';
+import { ApiTags } from '@nestjs/swagger';
+import { ${singularName}Updater } from 'src/Domain/${singularName}/${singularName}Updater';
 
-@Controller("${singularName.toLowerCase()}")
+@ApiTags('${singularName}')
+@Controller("${lowerSingularName}")
 export class ${singularName}PutController {
     constructor(
+        private readonly _${lowerSingularName}Updater: ${singularName}Updater,
     ) { }
 
 
     @Put('')
     async update(
-        @Body() ${singularName.toLowerCase()}: ${singularName}Dto,
+        @Body() ${lowerSingularName}: ${singularName}Dto,
     ) {
-        return 'Ok'
+        await this._${lowerSingularName}Updater.update(${lowerSingularName});
     }
 }`
 }

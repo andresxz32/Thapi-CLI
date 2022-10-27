@@ -56,20 +56,35 @@ const templateRepository = ({ singularName }) => {
 
         constructor(@InjectModel('${singularName}') private readonly _${lowerSingularName}Model: Model<${singularName}Document>) { }
     
+        async searchById(id: string): Promise<${singularName}> {
+            return await this._${lowerSingularName}Model.findById(id);
+        }
+
+        async save(${lowerSingularName}: ${singularName}): Promise<void> {
+             await this.persist(${lowerSingularName}.id.value, ${lowerSingularName});
+        }
+
+
         private async persist(id: string, ${lowerSingularName}: ${singularName}): Promise<void> {
             const document = { ...${lowerSingularName}, _id: id, id: undefined };
             await this._${lowerSingularName}Model.updateOne({ _id: id }, { $set: document }, { upsert: true });
         }
+
+
     
     }
 `
 }
 
 const templateIRepository = ({ singularName }) => {
+    const lowerSingularName = singularName.toLowerCase();
     return `
 import { ${singularName} } from "src/Domain/${singularName}/${singularName}"
+
 export interface I${singularName}Repository {
     //Add use cases here
+    searchById(id: string): Promise< ${singularName} >;
+    save(${lowerSingularName}: ${singularName}): Promise<void>;
 }
 `
 }
