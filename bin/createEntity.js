@@ -6,6 +6,7 @@ const { titleCase } = require('./utilities/titlecase');
 const createController = require('./createController');
 const createDomain = require('./createDomain');
 const createPersistence = require('./createPersistence');
+const createTests = require('./createTests');
 
 
 const createEntity = ({ name }) => {
@@ -25,6 +26,7 @@ const createEntity = ({ name }) => {
     createController({ pathUser, singularName });
     createPersistence({ pathUser, singularName, pluralName });
     createDomain({ pathUser, singularName })
+    createTests({ pathUser, singularName })
 }
 
 module.exports = { createEntity };

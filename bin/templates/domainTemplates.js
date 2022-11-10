@@ -79,7 +79,7 @@ const templateUpdater = ({ singularName }) => {
     import { Inject, Injectable } from "@nestjs/common";
     import { ${singularName} } from './${singularName}';
     import { Uuid } from 'src/Shared/Utilities/value-object/Uuid';
-    import { ${singularName}CreatorRequest } from 'src/Shared/Request/${singularName}CreatorRequest';
+    import { ${singularName}CreatorRequest } from 'src/Shared/Requests/${singularName}CreatorRequest';
     
     
     

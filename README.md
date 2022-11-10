@@ -10,7 +10,7 @@
     thapi --new --name="APPLICATION_NAME"
 
 # For create Entity:
-    In Developing ... 
+    thapi --entity="ENTITY_NAME"
 
 # For create Connection to MongoDB with Mongoose:
     In Developing ...
