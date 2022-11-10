@@ -56,5 +56,5 @@ This project is used by the following companies:
 
 - Trobbit Inc.
 
-![App Screenshot](bashs://trobbit.com/wp-content/uploads/2020/10/Logo-Main-Trobbit.png)
+![App Screenshot](https://trobbit.com/wp-content/uploads/2020/10/Logo-Main-Trobbit.png)
 
