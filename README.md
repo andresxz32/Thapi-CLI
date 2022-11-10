@@ -20,32 +20,32 @@ Install CLI with npm
 
 #### For create App:
 
-```http
+```bash
   thapi --new --name="APPLICATION_NAME"
 ```
 
 #### For create Entity:
 
-```http
+```bash
    thapi --entity --name="ENTITY_NAME"
 ```
 
 
 #### For create Connection to MongoDB with Mongoose:
 
-```http
+```bash
    Developing ...
 ```
 
 #### For create Connection to MySql with Prisma:
 
-```http
+```bash
    Developing ...
 ``` 
 
 #### For create Connection to MySql with Typeorm:
 
-```http
+```bash
    Developing ...
 ``` 
 
@@ -56,5 +56,5 @@ This project is used by the following companies:
 
 - Trobbit Inc.
 
-![App Screenshot](https://trobbit.com/wp-content/uploads/2020/10/Logo-Main-Trobbit.png)
+![App Screenshot](bashs://trobbit.com/wp-content/uploads/2020/10/Logo-Main-Trobbit.png)
 
